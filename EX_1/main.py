@@ -168,3 +168,33 @@ grafico.set_ylabel('Frequência')
 
 plt.tight_layout()
 plt.show()
+
+
+
+# Use a tabulação cruzada para verificar se há diferença entre a ocorrência de rachaduras e infiltrações para os blocos A e B.
+
+#Tabulação Cruzada
+
+df_filt = df[df['Bloco'].isin(['A','B'])]
+
+crosstab = pd.crosstab(df_filt['Rachadura'], df_filt['Infiltr'], margins=True, margins_name="Total")
+
+# Criar gráfico de barras
+crosstab.plot(kind='bar', stacked=True)
+plt.title('Tabulação Cruzada: Rachaduras vs Infiltrações')
+plt.xlabel('Rachaduras')
+plt.ylabel('Contagem')
+plt.xticks(rotation=0)
+plt.legend(title='Infiltrações')
+plt.show()
+
+
+
+# . Crie uma nova coluna, com o nome Andar, e nela divida os apartamentos em duas categorias: baixo (até nono andar) e alto (décimo andar em diante).
+
+df['Andar_modif'] = ['Baixo' if x <= 9 else 'Alto' for x in df['Andar']]
+
+print(df.head(50))
+
+
+# Usando tabelas e / ou gráficos, estude a ocorrência de rachaduras e infiltrações em separado para cada categoria. 
