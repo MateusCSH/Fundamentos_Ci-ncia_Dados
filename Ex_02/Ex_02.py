@@ -114,3 +114,48 @@ print(f'Olá: {firts_name}')
 email = str(input('Digite seu email: '))
 dominio = email.split('@')
 print(f'Seu domínio é: {dominio[1]}')
+
+
+# Exercício 5
+# - Crie uma tupla chamada cores contendo as seguintes cores: "vermelho", "azul", "verde",
+# "amarelo", "roxo".
+# - Imprima a tupla cores.
+# - Acesse e imprima o segundo item da tupla cores.
+# - Verifique se a cor "azul" está presente na tupla cores e imprima True ou False dependendo
+# da resposta.
+# - Crie uma tupla chamada numeros contendo os números (1, 2, 3, 4, 5).
+# - Some todos os elementos da tupla numeros e imprima o resultado.
+# - Tente alterar o valor do terceiro item da tupla cores para "laranja". O que acontece? Explique
+# por que não é possível alterar um valor em uma tupla.
+# - Crie uma nova tupla chamada nova_cores que seja a concatenação da tupla cores com uma
+# nova tupla ("preto", "branco") e imprima o resultado.
+
+cores = ("vermelho", "azul", "verde","amarelo", "roxo")
+print(cores)
+print(cores[1])
+
+if "azul" in cores:
+    print('Cor encontrada')
+else:
+    print('Cor não encontrada')
+
+
+numbers = (1, 2, 3, 4, 5)
+sum_numbers = sum(numbers)
+print(sum_numbers)
+# Tuplas são imutaveis, logo não é possivel alterar seu valor.
+
+new_colors= ("black", "white")
+new_colors = new_colors + cores
+print(new_colors)
+
+
+
+# Exercício 9
+# Faça um programa que pergunte quanto você ganha por hora e o número de horas trabalhadas
+# no mês. Calcule e mostre o total do seu salário no referido mês, sabendo-se que são
+# descontados 11% para o imposto de renda, 8% para o INSS e 5% para o sindicato. O
+# programa deve mostrar: salário bruto, quanto pagou ao INSS, quanto pagou ao sindicato,
+# salário líquido.
+
+
