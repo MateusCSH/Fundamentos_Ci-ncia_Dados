@@ -1,0 +1,103 @@
+
+###########
+# INSTALANDO E CARREGANDO PACOTES
+###########
+
+install.packages("corrplot") #mostra mapa de calor das correlações (e bom para dados peguenos)
+install.packages("datarium") # Conjunto de dados
+install.packages("esquisse") # faz gráficos
+
+# Carregando
+library(corrplot)
+library(datarium)
+library(esquisse)
+
+
+###########
+# CARREGANDO OS DADOS
+###########
+
+
+dados = marketing
+
+
+###########
+# Análise gráfica
+###########
+
+
+esquisser(dados)
+
+
+###########
+# separação dos dados em treino e teste
+###########
+
+# Calcula o tamanho da amostra de treino
+tamano_treino = 0.8 * nrow(dados)
+
+# Semente aleatória
+set.seed(123)
+
+# Sorteio dos dados de treino
+treino_indice = sample(1:nrow(dados), size = tamano_treino)
+
+# Separação em treino e teste
+
+dados_treino = dados[treino_indice, ]
+dados_teste = dados[-treino_indice, ]
+
+
+###########
+# Matriz de correlações
+###########
+# Matriz de correlações
+matriz_correlacoes = cor(dados)
+
+matriz_correlacoes
+
+# Só para vendas
+
+matriz_correlacoes[, 4]
+
+
+# Mapa de calor
+corrplot(matriz_correlacoes, method = "number")
+
+
+###########
+# MODELO DE REGRESSÃO
+###########
+
+
+modelo = lm(data=dados_treino, formula = sales ~.)
+summary(modelo)
+
+modelo2 = lm(data=dados_treino, formula = sales ~ youtube + facebook)
+summary(modelo2)
+
+
+# Modelo final:
+# Vendas = 3.52 + 0,05 * youtube + 0.19 * facebook
+
+###########
+# Acurácia do modelo
+###########
+
+
+
+install.packages("MLmetrics")
+library(MLmetrics)
+
+
+# Precições na amostra de teste
+predicoes = predict(modelo2, dados_teste[, 1:3])
+
+
+#Erro médio percentual absoluto
+MAPE(predicoes, dados_teste$sales)
+
+
+
+
+
