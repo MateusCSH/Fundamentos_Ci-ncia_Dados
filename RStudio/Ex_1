@@ -1,1 +1,46 @@
 
+#Instalando pacotes
+install.packages("corrplot") # mostra o mapa de calor
+install.packages("datarium") # conjunto de dados
+install.packages("esquisse") # faz graficos
+
+#Carregamento
+library(corrplot)
+library(datarium)
+library(esquisse)
+
+#Matriz de correlaçoes
+matriz_correlacoes <- cor(ansiedade)
+matriz_correlacoes
+matriz_correlacoes[,12]
+
+##nivel_stress, sessoes_terapia_mes, cafeina_mg_dia
+
+#Separação em treino e teste
+dados_treino <- ansiedade[treino_indices,]
+dados_teste <- ansiedade[-treino_indices,]
+
+#Calcula tamnho amostra de treino
+tamanho_treino <- 0.8*nrow(ansiedade)
+
+#Mapa de calor
+corrplot(matriz_correlacoes, method = "number")
+
+#Modelo de regressão
+modelo <- lm(data = dados_treino, formula = nivel_ansiedade ~.)
+summary(modelo)
+
+
+esquisser(ansiedade)
+
+#######################
+#Acuracia do modelo
+#######################
+install.packages("MLmetrics")
+library(MLmetrics)
+
+#Predicoes na amostra de teste
+predicoes <- predict(modelo, dados_teste[,1:12])
+
+# Erro médio percentual absoluto
+MAPE(predicoes, dados_teste$nivel_ansiedade)
